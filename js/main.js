@@ -547,5 +547,3 @@ function initScrollTo(){
     });
 
 }
-
-// no window.addEventListener('load') because we are using imagesLoaded for preloading
