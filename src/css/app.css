@@ -1,9 +1,26 @@
+@font-face {
+  font-family: "Graphit";
+  src: local("Custom Font"), url("../fonts/Graphit-Regular.eot"); /* IE9 Compat Modes */
+  src: url("../fonts/Graphit-Regular.eot?#iefix") format("embedded-opentype"),
+    /* IE6-IE8 */ url("../fonts/Graphit-Regular.woff2") format("woff2"),
+    /* Super Modern Browsers */ url("../fonts/Graphit-Regular.woff")
+      format("woff"),
+    /* Pretty Modern Browsers */ url("../fonts/Graphit-Regular.ttf")
+      format("truetype"),
+    /* Safari, Android, iOS */ url("../fonts/Graphit-Regular.svg#svgFontName")
+      format("svg"); /* Legacy iOS */
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+000-5FF;
+}
+
 :root {
   --text-color: white;
   --text-dark-color: #202020;
   --header-height: 100px;
   --burger-width: 40px;
-  --font-headings: "Playfair Display", serif;
+  --font-headings: freight-big-pro, serif;
 
   --bcg-green: #acb7ae;
   --bcg-lightgreen: #a6b3b3;
@@ -28,7 +45,7 @@
 }
 
 body {
-  font: 16px/1.7 "Source Sans Pro", Helvetica, Helvetica Neue, Arial, sans-serif;
+  font: 16px/1.7 "Graphit", sans-serif;
   color: var(--text-dark-color);
   width: 100vw;
   overflow-x: hidden;
@@ -61,7 +78,7 @@ li {
   font-size: 110px;
   font-size: 5.66vw;
   line-height: 8.33vw;
-  font-family: 'FreightDispBook';
+  font-family: var(--font-headings)
 }
 
 .f-heading-l {
@@ -72,7 +89,7 @@ li {
   line-height: 5.2vw;
   letter-spacing: 0.5px;
   letter-spacing: 0.03vw;
-  font-family: 'FreightDispMedium';
+  font-family: var(--font-headings)
 }
 
 .f-heading-m {
@@ -686,9 +703,10 @@ section {
 .blog-text {
   position: absolute;
   left: calc(50vw + var(--h-gutter));
-  right: calc(var(--h-gutter) * 4);
+  right: calc(var(--h-gutter) * 2);
   top: calc(50% + (var(--v-spacing) / 2));
   transform: translateY(-50%);
+  color: var(--text-color);
 }
 .blog-text h3 {
   font-family: var(--font-headings);
@@ -700,7 +718,7 @@ section {
 
 /* =Contact */
 .s-contact .chapter {
-  color: var(--text-dark-color);
+  color: var(--text-color);
 }
 .is-flipped .blog-image {
   margin: 0 16.6% 0 50%;
@@ -799,10 +817,6 @@ section {
   margin: 0 calc(30vw + var(--h-gutter)) var(--v-spacing) 33.33vw;
 }
 /* =Footer */
-
-/* ==========================================================================
-  Media Queries
- ========================================================================== */
 
 @media only screen and (max-width: 480px) {
   .f-heading-xxl {
@@ -947,6 +961,7 @@ section {
   .blog-image {
     padding-bottom: 100%;
     margin: 0 16.66vw 6.66vw;
+    height: 50vw;
   }
   .blog-text {
     left: auto;

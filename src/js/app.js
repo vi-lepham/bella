@@ -1,3 +1,9 @@
+import { gsap } from "gsap/dist/gsap"
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
+import barba from "@barba/core"
+import imagesLoaded from "imagesloaded"
+import Scrollbar from "smooth-scrollbar"
+
 gsap.registerPlugin(ScrollTrigger)
 
 let bodyScrollBar
@@ -6,14 +12,6 @@ const select = (e) => document.querySelector(e)
 const selectAll = (e) => document.querySelectorAll(e)
 
 const sections = selectAll(".cv-column")
-
-// create hover effect for each portfolio navigation item
-const allLinks = gsap.utils.toArray(".portfolio-categories a")
-const pageBackground = select(".fill-background")
-const largeImage = select(".portfolio-image-l")
-const smallImage = select(".portfolio-image-s")
-const lInside = select(".portfolio-image-l .image_inside")
-const sInside = select(".portfolio-image-s .image_inside")
 
 const loader = select(".a-loader")
 const loaderInner = select(".a-loader .inner")
@@ -41,14 +39,14 @@ function init() {
   const container = select(".a-main")
 
   // setup Images loaded
-  const imgLoad = imagesLoaded(container)
-  imageCount = imgLoad.images.length
+  const preloadImages = imagesLoaded(container)
+  imageCount = preloadImages.images.length
 
   // set the initial progress to 0
   updateProgress(0)
 
   // triggered after each item is loaded
-  imgLoad.on("progress", function () {
+  preloadImages.on("progress", function () {
     loadedImageCount++
 
     updateProgress(loadedImageCount)
@@ -63,7 +61,7 @@ function init() {
     })
   }
 
-  imgLoad.on("done", function (instance) {
+  preloadImages.on("done", function (instance) {
     gsap.set(progressBar, { autoAlpha: 0, onComplete: initPageTransitions })
   })
 }
@@ -376,28 +374,29 @@ function initPortfolioHover() {
   })
 }
 
+const allLinks = gsap.utils.toArray(".portfolio-categories a")
+const largeImage = select(".portfolio-image-l")
+const smallImage = select(".portfolio-image-s")
+
 function createPortfolioHover(e) {
+
+  const lInside = select(".portfolio-image-l .image_inside")
+  const sInside = select(".portfolio-image-s .image_inside")
+
   if (e.type === "mouseenter") {
-    // change images to the right urls
-    // fade in images
-    // all siblings to white and fade out
-    // active link to white
-    // update page background color
 
     const { color, imagelarge, imagesmall } = e.target.dataset
     const allSiblings = allLinks.filter((item) => item !== e.target)
     const tl = gsap.timeline({
       onStart: () => updateBodyColor(color),
     })
-    tl.set(lInside, { backgroundImage: `url(${imagelarge})` })
-      .set(sInside, { backgroundImage: `url(${imagesmall})` })
+    tl.set(lInside, { backgroundImage: `require(${imagelarge})` })
+      .set(sInside, { backgroundImage: `require(${imagesmall})` })
       .to([largeImage, smallImage], { autoAlpha: 1 })
       .to(allSiblings, { color: "#fff", autoAlpha: 0.2 }, 0)
       .to(e.target, { color: "#fff", autoAlpha: 1 }, 0)
+
   } else if (e.type === "mouseleave") {
-    // fade out images
-    // all links back to black
-    // change background color back to default
 
     const tl = gsap.timeline({
       onStart: () => updateBodyColor("#ACB7AE"),
@@ -505,12 +504,26 @@ function initScrollTo() {
 }
 
 // Media query
-const mq = window.matchMedia("(max-width: 768px")
+function handleWithChange(mq) {
+  if (mq.matches) {
 
-mq.addListener(handleWithChange)
+    removeHoverReveal()
+    initMobileNavigation()
+
+  } else {
+
+    initHoverReveal()
+    initNavigation()
+
+  }
+}
+
+const mq = window.matchMedia("screen and (max-width: 480px)")
 
 // first page load
 handleWithChange(mq)
+
+mq.addEventListener("change", handleWithChange(mq))
 
 // reset all props
 function resetProps(elements) {
@@ -566,16 +579,3 @@ function initMobileNavigation() {
 
 }
 
-function handleWithChange(mq) {
-  if (mq.matches) {
-
-    removeHoverReveal()
-    initMobileNavigation()
-
-  } else {
-
-    initNavigation()
-    initHoverReveal()
-
-  }
-}

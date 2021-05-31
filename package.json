@@ -1,0 +1,20 @@
+{
+  "name": "bella",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/vi-lepham/bella.git",
+  "author": "Pham Le Vi <vi@monotas.net>",
+  "license": "MIT",
+  "scripts": {
+    "build": "parcel build src/index.html --no-cache",
+    "start": "parcel serve src/index.html --no-cache"
+  },
+  "dependencies": {
+    "@barba/core": "^2.9.7",
+    "gsap": "^3.6.1",
+    "imagesloaded": "^4.1.4",
+    "locomotive-scroll": "^4.1.1",
+    "parcel": "^2.0.0-beta.2",
+    "smooth-scrollbar": "^8.6.2"
+  }
+}
