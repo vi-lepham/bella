@@ -183,9 +183,9 @@ function initLoader() {
 function initContent() {
   select("body").classList.remove("is-loading")
   initSmoothScrollbar()
-  //initNavigation()
+  initNavigation()
   initHeaderTilt()
-  //initHoverReveal()
+  initHoverReveal()
   initPortfolioHover()
   initImageParallax()
   initPinSteps()
@@ -509,11 +509,6 @@ function handleWithChange(mq) {
 
     removeHoverReveal()
     initMobileNavigation()
-
-  } else {
-
-    initHoverReveal()
-    initNavigation()
 
   }
 }
