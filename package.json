@@ -7,7 +7,7 @@
   "scripts": {
     "start": "parcel src/index.html --open",
     "clean": "rm -rf dist/*",
-    "build:parcel": "parcel build src/index.html --no-minify --no-source-maps --public-url ./",
+    "build:parcel": "parcel build src/index.html src/index2.html --no-minify --no-source-maps --public-url ./",
     "build": "npm run clean && npm run build:parcel"
   },
   "dependencies": {
