@@ -11,4 +11,6 @@ node_modules
 .env
 
 # Ignore parcel cache
-.parcel-cache
+.cache
+
+yarn.lock

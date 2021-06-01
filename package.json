@@ -5,14 +5,16 @@
   "author": "Pham Le Vi <vi@monotas.net>",
   "license": "MIT",
   "scripts": {
-    "build": "parcel build src/index.html --no-cache",
-    "start": "parcel serve src/index.html --no-cache"
+    "start": "parcel src/index.html --open",
+    "clean": "rm -rf dist/*",
+    "build:parcel": "parcel build src/index.html --no-minify --no-source-maps --public-url ./",
+    "build": "npm run clean && npm run build:parcel"
   },
   "dependencies": {
     "@barba/core": "^2.9.7",
     "gsap": "^3.6.1",
     "imagesloaded": "^4.1.4",
-    "parcel": "^2.0.0-beta.2",
+    "parcel-bundler": "^1.12.5",
     "smooth-scrollbar": "^8.6.2"
   }
 }
